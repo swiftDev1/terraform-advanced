@@ -8,6 +8,7 @@ resource "aws_instance" "web-server" {
     instance_type = "t2.micro"
     tags = {
       "Name" = "Imported-Instance"
+      "Terraform" = "true"
     }
   
 }
