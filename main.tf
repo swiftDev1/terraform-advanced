@@ -1,6 +1,6 @@
 import {
   to = aws_instance.web-server
-  id = "i-01f743c6bd8da6d1c"
+  id = "i-0566cc016a5e3d193"
 }
 
 resource "aws_instance" "web-server" {
