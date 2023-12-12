@@ -12,3 +12,9 @@ resource "aws_instance" "web-server" {
     }
   
 }
+
+resource "aws_s3_bucket" "terra-bucket" {
+  bucket = var.bucket-name
+  force_destroy = true
+  
+}
