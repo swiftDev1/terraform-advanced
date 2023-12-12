@@ -184,7 +184,30 @@ _terraform state replace-provider_ replaces the provider that manages your resou
 This comes under terraform disaster recovery concept. _terraform state pull_ will download the state file from its current location and display it on stdout. _terraform state push_ is used to push your terraform state file from your local to a newly configured remote location.  
 **TERRAFORM TAINT AND UNTAINT**  
 The _terraform taint_ command usually marks a resource as tainted, forcing it to be destroyed and recreated on the next apply. A practical application would be on an a VM or an EC2 instance that configures itself using a cloud-init script or userdata script. When this script changes, there is usually nothing to tell terraform that this VM no longer meets your need because the script has changed. What you can do is to manually taint this VM and force its destruction and recreation.  
-_terraform untaint_ reverses either a manual terraform taint or the result of provisioners failing on a resource. This command does not modify infrastructure, rather modifies the state file in order to mark a resource as untainted.   
+_terraform untaint_ reverses either a manual terraform taint or the result of provisioners failing on a resource. This command does not modify infrastructure, rather modifies the state file in order to mark a resource as untainted.  
+
+**TERRAFORM STATE MV**  
+You and a colleague are working on updating some Terraform configurations within your organization. You need to follow a new naming standard for the local name within your resource blocks. However, you don't want Terraform to replace the object after changing your configuration files.
+
+As an example, you want to change data-bucket to now be prod-encrypted-data-s3-bucket in the following resource block:
+
+
+
+resource "aws_s3_bucket" "data-bucket" {
+  bucket = "corp-production-data-bucket"
+ 
+  tags = {
+    Name        = "corp-production-data-bucket"
+    Environment = "prod"
+  }
+}
+
+
+After updating the resource block, what command would you run to update the local name while ensuring Terraform does not replace the existing resource?  
+_terraform state mv aws_s3_bucket.data-bucket aws_s3_bucket.prod-encrypted-data-s3-bucket_  
+If you want to delete resources to save cost but one of your colleague tell you to leave his SQL DB running, what you can do is _run terraform state rm before running terraform destroy_  
+
+
 **TERRAFORM RESOURCE TARGETTING WITH -target (PLAN & APPLY)**  
 The -target option can be used to focus Terraform's attention on only a subset of resources. This targeting capability is provided for exceptional circumstances, such as recovering from mistakes or working around terraform's limitations. terraform plan -target=aws_instance.myec2-web  The target also covers dependent resources of the ec2 instance such as associated security groups. So if there is a change in the SG, the plan will update it.  
 **TERRAFORM WORKSPACES**  
