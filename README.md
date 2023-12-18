@@ -205,7 +205,13 @@ resource "aws_s3_bucket" "data-bucket" {
 
 After updating the resource block, what command would you run to update the local name while ensuring Terraform does not replace the existing resource?  
 _terraform state mv aws_s3_bucket.data-bucket aws_s3_bucket.prod-encrypted-data-s3-bucket_  
-If you want to delete resources to save cost but one of your colleague tell you to leave his SQL DB running, what you can do is _run terraform state rm before running terraform destroy_  
+If you want to delete resources to save cost but one of your colleague tell you to leave his SQL DB running, what you can do is _run terraform state rm before running terraform destroy_    
+The terraform plan -refresh-only command is used to create a plan whose goal is only to update the Terraform state to match any changes made to remote objects outside of Terraform.  
+The terraform apply -replace command manually marks a Terraform-managed resource for replacement, forcing it to be destroyed and recreated on the apply execution.
+
+You could also use terraform destroy -target <virtual machine> and destroy only the virtual machine and then run a terraform apply again.  
+Which of the following commands can be used to detect configuration drift? **terraform apply -refresh-only**  
+
 
 
 **TERRAFORM RESOURCE TARGETTING WITH -target (PLAN & APPLY)**  
