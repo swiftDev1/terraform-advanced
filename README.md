@@ -12,7 +12,7 @@ terraform fmt
 
 **Terraform init** is used to initialize a working directory containing terraform config files. It initializes the backend and downloads your plugins/providers.  
 **Terraform validate** ensures that the configurations are syntactically valid and internally consistent.
-**Terraform plan** creates an execution plan; shows you what it plans to create, delete, or update. It performs a refresh and determines what actions are necessary to achieve the desired state as stated in the configuration files.  
+**Terraform plan** creates an execution plan; and shows you what it plans to create, delete, or update. It performs a refresh and determines what actions are necessary to achieve the desired state as stated in the configuration files.  
 **Terraform apply** is used to apply the changes needed to reach the desired configuration.  
 **Terraform destroy** is used to destroy any terraform-managed infrastructure. Usually asks for confirmation before destroying.  
 *If you have a default VPC in that region, you don't need to specify any VPC-related configuration in your files.*  
@@ -37,7 +37,7 @@ You can optionally define multiple configurations for the same provider, and sel
 _terraform apply -auto-approve_ to avoid the interruption.  
 Whenever you run terraform apply, a terraform.tfstate file gets created for you which is like a database of your terraform resources.  
 **DEPENDENCY LOCK FILE**  
-Terraform has two external dependencies outside its code base: Providers and Modules. After selecting a specific version of each dependency using version constraints, terraform remembers the decision it made in a dependency lock file so that it can (by default) nake the same decision in the future. If Terraform did not find a dependency lock file, it would download the latest version of the provider that fulfills the version constraints you defined in the required_providers argument inside the terraform block. If we have a lock file, the lock file causes Terraform to always install the same provider version, ensuring that runs across your team or remote sessions would be consistent. This file is created when you run terraform init. But if you run terraform init -upgrade it actually upgrades beyond what's in the lock file.  
+Terraform has two external dependencies outside its code base: Providers and Modules. After selecting a specific version of each dependency using version constraints, terraform remembers the decision it made in a dependency lock file so that it can (by default) make the same decision in the future. If Terraform did not find a dependency lock file, it would download the latest version of the provider that fulfills the version constraints you defined in the required_providers argument inside the terraform block. If we have a lock file, the lock file causes Terraform to always install the same provider version, ensuring that runs across your team or remote sessions would be consistent. This file is created when you run terraform init. But if you run terraform init -upgrade it actually upgrades beyond what's in the lock file.  
 **META-ARGUMENTS** can be used with any resource to change the behaviour of the resource for e.g. for_each, provider, count, life_cycle, depends_on. Notice how it is different from resource arguments.  
 When you run terraform apply for the first time, terraform.tfstate file is created. When you run the command subsequently, it just updates the state file.
 **PRO TIP**  
